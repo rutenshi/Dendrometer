@@ -1,0 +1,28 @@
+function decodeUplink(input) {
+  var b = input.bytes; //save income data
+  data = {};
+  var events = {
+    1:"1",
+    2:"2",
+    3:"2",
+    4:"3",
+  };
+  var hundreds = (b[0] - 0x30) * 100; //multiply times 100 to be hundreds
+  var tens = (b[1] - 0x30) * 10; //multiply times 10 to be tens
+  var units = (b)[3] - 0x30; //just units
+  var d_um = (hundreds + tens + units) / 10;
+  //send to field 1 in thingSpeak
+  data.field1 = d_um;
+  data.port = events[input.fPort]; // it has to be port 2
+  
+  // board shares information through port 2
+  if (data.port != 2){
+    warnings.push("Check the board port");
+  }
+  var warnings = [];
+  
+  return {
+  data: data,
+  warnings: warnings
+  };
+}
