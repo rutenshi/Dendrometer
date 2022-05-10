@@ -144,6 +144,7 @@ void loop() {
     //DEVICE_STATE_CYCLE
     case DEVICE_STATE_CYCLE: {
       // Schedule next packet transmission
+      /* Defines a random delay for application data transmission duty cycle. 1000 [ms] = 1s. */
       txDutyCycleTime = appTxDutyCycle + randr( 0, APP_TX_DUTYCYCLE_RND );
       LoRaWAN.cycle(txDutyCycleTime);
       deviceState = DEVICE_STATE_SLEEP;
