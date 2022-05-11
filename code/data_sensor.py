@@ -4,12 +4,12 @@
 
 import tkinter as tk
 import matplotlib.pyplot as plt # graphication library
-from matplotlib import dates as mdates #to format the x-axis with date and time values
+#from matplotlib import dates as mdates #to format the x-axis with date and time values
 from tkcalendar import DateEntry
 from datetime import date, datetime
 import pandas as pd # csv file management
 from tkinter import * 
-from matplotlib.widgets import Slider # Subpaquete para agregar las barras de control
+from matplotlib.widgets import Slider # Subpacket to add slide bar
 from tkinter import ttk #
 from tkinter import filedialog
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -27,8 +27,6 @@ def config_gra():
     fig.subplots_adjust( hspace = 0.0, wspace = 0.1 )
     ax[0].grid(True)
     ax[1].grid(True)
-    
-    
     
 # Close button
 def close():
@@ -72,7 +70,7 @@ def my_upd():
     global index_list, fig, ax, data_um
     # ----------------------------> Temperature txt file <-----------------------------------
     # path, change it
-    data_path = "C:/Users/luis_/Downloads/10minutenwerte_TU_00044_akt/produkt_zehn_min_tu_20201105_20220508_00044.txt"
+    data_path = "C:/Users/luis_/Downloads/10minutenwerte_TU_00044_akt/produkt_zehn_min_tu_20201107_20220510_00044.txt"
     
     # Read the csv file, delimited by ';'
     df_temp = pd.read_csv(data_path, delimiter = ";")
@@ -113,24 +111,12 @@ def my_upd():
     h1 = hour_spinbox.get() # hour
     m1 = minute_spinbox.get() # minutes 
     s1 = "00" # seconds
-    m1_aux = int(m1)
-
-    if(m1_aux < 10):
-        t1 = f"{h1}:0{m1}:{s1}"
-    else:
-        t1 = f"{h1}:{m1}:{s1}"
-    
+    t1 = f"{h1}:{m1}:{s1}"
     # get the time from the spinbox
     # Time 2
     h2 = hour_spinbox2.get() # hour
     m2 = minute_spinbox2.get() # minute
-    m2_aux = int(m2)
-    
-    if(m2_aux < 10):
-        t2 = f"{h2}:0{m2}:{s1}"
-    else:
-        t2 = f"{h2}:{m2}:{s1}"
-    
+    t2 = f"{h2}:{m2}:{s1}"
     # Give format to the start and end date
     time1 = str_dt1 + " " + t1
     start = pd.Timestamp(time1) # transform to timestamp type
@@ -203,7 +189,7 @@ def my_upd():
     canvas.draw() # Show plot in canvas object
     fig.savefig('graph_0.pdf') # Save the current figure into a pdf file
     
-##############################################################################################
+# ///////////////////////////////////////////////
 # Create a window using tkinter
 window = Tk()
 window.title('Dendrometer data')
@@ -245,7 +231,7 @@ canvas = FigureCanvasTkAgg(fig, second_frame)
 canvas.draw()
 canvas.get_tk_widget().grid(column = 5, row = 20) # location in the frame
 
-###############################################################################################
+# ///////////////////////////////////////////////
 # Radio button
 tipo = IntVar()
 
@@ -275,7 +261,7 @@ minute_spinbox.grid(row = 9, column = 1)
 hour_spinbox2.grid(row = 7, column = 2)
 minute_spinbox2.grid(row = 9, column = 2)
 
-######################################## Text labels ########################################
+#//////////////////////// Text labels //////////////////////////////
 
 # label
 title_label = tk.Label(second_frame, text = "Open cvs file to plot", font = f)
@@ -326,7 +312,6 @@ R2.grid(column = 4, row = 4)
 button_plot = Button(second_frame, text = "Plot graph", width = 25, command = my_upd) # call function to plot
 button_plot.grid(row = 10, column = 2) # location in the frame
 
-############################################################################################
 # Define buttons to clean and close
 button_clean = Button(second_frame, text = "Clear", width = 25, command = clean)
 button_close = Button(second_frame, text = "Close", width = 25, command = close)
